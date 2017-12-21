@@ -5,8 +5,8 @@ import (
 	"net/http"
 )
 
-func (c *Client) RebootPi(piId string) error {
-	fullUrl := fmt.Sprintf("%v/oven/%v/reboot", c.url, piId)
+func (c *Client) PowerCyclePi(piId string) error {
+	fullUrl := fmt.Sprintf("%v/oven/%v/powercycle", c.url, piId)
 	resp, err := c.httpClient.Post(fullUrl, "application/json", nil)
 	if err != nil {
 		return err
