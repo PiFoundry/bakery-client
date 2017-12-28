@@ -21,9 +21,10 @@ type Bakeform struct {
 }
 
 type Disk struct {
-	ID       string `json:"id"`
-	Location string `json:"location"`
-	Size     int64  `json:"size"`
+	ID         string `json:"id"`
+	Location   string `json:"location"`
+	Size       int64  `json:"size"`
+	NfsAddress string `json:"nfsAddress"`
 }
 
 type Disks struct {
