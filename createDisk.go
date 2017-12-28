@@ -24,7 +24,8 @@ func (c *Client) CreateDisk(sizeInMb int) (string, error) {
 	defer resp.Body.Close()
 
 	if resp.StatusCode != http.StatusCreated {
-		return "", fmt.Errorf("CreateDisk returned status code %v", resp.StatusCode)
+		bodyBytes, _ := ioutil.ReadAll(resp.Body)
+		return "", fmt.Errorf("CreateDisk returned status code %v: %v", resp.StatusCode, bodyBytes)
 	}
 
 	var disk Disk
