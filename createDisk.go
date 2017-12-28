@@ -8,12 +8,12 @@ import (
 	"net/http"
 )
 
-func (c *Client) CreateDisk(sizeinMb int) (string, error) {
+func (c *Client) CreateDisk(sizeInMb int) (string, error) {
 	var diskParams struct {
-		Size int
+		Size int `json:"size"`
 	}
 
-	diskParams.Size = sizeinMb
+	diskParams.Size = sizeInMb
 	jsonBytes, _ := json.Marshal(diskParams)
 
 	req, _ := http.NewRequest("POST", c.url+"/disks", bytes.NewBuffer(jsonBytes))
