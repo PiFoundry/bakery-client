@@ -7,33 +7,24 @@ import (
 	"net/http"
 )
 
-func (c *Client) GetDisks() ([]string, error) {
-	var diskResponse struct {
-		Disks map[string]Disk `json:"disks"`
-	}
+func (c *Client) GetDisks() (Disks, error) {
+	var diskResponse Disks
 
 	resp, err := c.httpClient.Get(c.url + "/disks")
 	if err != nil {
-		return nil, err
+		return Disks{}, err
 	}
 	defer resp.Body.Close()
 
 	if resp.StatusCode != http.StatusOK {
-		return nil, fmt.Errorf("GetDisks returned status code %v", resp.StatusCode)
+		return Disks{}, fmt.Errorf("GetDisks returned status code %v", resp.StatusCode)
 	}
 
 	bodyBytes, _ := ioutil.ReadAll(resp.Body)
 	err = json.Unmarshal(bodyBytes, &diskResponse)
 	if err != nil {
-		return nil, err
+		return Disks{}, err
 	}
 
-	diskIds := make([]string, len(diskResponse.Disks))
-	i := 0
-	for key := range diskResponse.Disks {
-		diskIds[i] = key
-		i++
-	}
-
-	return diskIds, nil
+	return diskResponse, nil
 }

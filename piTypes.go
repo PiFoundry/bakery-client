@@ -23,4 +23,9 @@ type Bakeform struct {
 type Disk struct {
 	ID       string `json:"id"`
 	Location string `json:"location"`
+	Size     int64  `json:"size"`
+}
+
+type Disks struct {
+	Disks map[string]Disk `json:"disks"`
 }
