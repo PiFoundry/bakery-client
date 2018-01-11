@@ -19,9 +19,6 @@ func (c *Client) GetDisks() (Disks, error) {
 		return Disks{}, fmt.Errorf("GetDisks returned status code %v", resp.StatusCode)
 	}
 
-	/*bodyBytes, _ := ioutil.ReadAll(resp.Body)
-	err = json.Unmarshal(bodyBytes, &diskResponse)*/
-
 	err = json.NewDecoder(resp.Body).Decode(&diskResponse)
 	if err != nil {
 		return Disks{}, err
